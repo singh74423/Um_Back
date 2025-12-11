@@ -8,16 +8,12 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 
 // MongoDB Connect
 mongoose
-  .connect(process.env.MongoDBURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MongoDBURI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("Error connecting MongoDB:", err));
 
@@ -25,5 +21,5 @@ mongoose
 app.use("/book", bookRoute);
 app.use("/user", userRoute);
 
-// Export Express app for Vercel (important)
+// Vercel needs this handler
 export default app;
